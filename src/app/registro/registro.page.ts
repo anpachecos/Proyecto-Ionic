@@ -38,7 +38,7 @@ export class RegistroPage implements OnInit {
     
     if (this.formularioRegistro.invalid){
         const alert = await this.alertController.create({
-          header: 'Faltan datos!',
+          header: '¡Faltan datos!',
           message: 'Por favor, completa todos los campos para registrarte',
           buttons: ['Aceptar'],
         });
@@ -46,6 +46,13 @@ export class RegistroPage implements OnInit {
       await alert.present();
       return; //Para evitar que la función continue.
     }
+
+    var usuario = {
+      nombre : f.nombre, 
+      password: f.password,
+    }
+
+    localStorage.setItem('usuario',JSON.stringify(usuario));
 
   }
 
