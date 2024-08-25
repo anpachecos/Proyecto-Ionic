@@ -6,7 +6,7 @@ import {
   FormBuilder
 } from '@angular/forms';
 
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -19,7 +19,10 @@ export class RegistroPage implements OnInit {
 
   formularioRegistro: FormGroup;
 
-  constructor(public fb: FormBuilder, public alertController: AlertController) { 
+  constructor(
+    public fb: FormBuilder, 
+    public alertController: AlertController,
+    public navCtrl: NavController  ) { 
     
     this.formularioRegistro = this.fb.group({
       'nombre': new FormControl("", Validators.required),
@@ -45,7 +48,18 @@ export class RegistroPage implements OnInit {
   
       await alert.present();
       return; //Para evitar que la función continue.
+    } else {
+      const alert = await this.alertController.create({
+        header: '¡Registro Completo!',
+        message: 'Ya puedes ingresar con tu usuario y contraseña',
+        buttons: ['Aceptar']
+      });
+
+      await alert.present();
+      return;
+
     }
+    
 
     var usuario = {
       nombre : f.nombre, 

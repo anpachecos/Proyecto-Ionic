@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 
 @Component({
@@ -12,7 +12,10 @@ export class LoginPage implements OnInit {
 
   formularioLogin: FormGroup;
 
-  constructor(public fb: FormBuilder, public alertController: AlertController) { 
+  constructor(
+    public fb: FormBuilder, 
+    public alertController: AlertController,
+    public navCtrl: NavController){ 
 
     this.formularioLogin = this.fb.group({
       'nombre': new FormControl("", Validators.required),
@@ -32,13 +35,16 @@ export class LoginPage implements OnInit {
     pero hay que tener ojo si ha futuro tengo problemas con usuarios creados pero con datos Vacíos, 
     ya que el operados OR pasará objetos localStorage con datos o vacíos.*/
 
+
     if(usuario.nombre == f.nombre && usuario.password == f.password){
       console.log('Ingresado!!!');
+      localStorage.setItem('ingresado', 'true');
+      this.navCtrl.navigateRoot('inicio');
     } else {
       const alert = await this.alertController.create({
         header: '¡Usuario Incorrecto!',
         message: 'Los datos ingresados no son válidos',
-        buttons: ['Aceptar'],
+        buttons: ['Aceptar']
       });
 
     }
