@@ -49,25 +49,24 @@ export class RegistroPage implements OnInit {
       await alert.present();
       return; //Para evitar que la función continue.
     } else {
+      var usuario = {
+        nombre: f.nombre,
+        password: f.password,
+      };
+
+      localStorage.setItem('usuario', JSON.stringify(usuario));
+
       const alert = await this.alertController.create({
-        header: '¡Registro Completo!',
-        message: 'Ya puedes ingresar con tu usuario y contraseña',
-        buttons: ['Aceptar']
+          header: '¡Registro Completo!',
+          message: 'Ya puedes ingresar con tu usuario y contraseña',
+          buttons: ['Aceptar']
       });
 
       await alert.present();
-      return;
+      this.navCtrl.navigateRoot('login'); // Opcional: Navegar al login después de registrarse.
 
     }
     
-
-    var usuario = {
-      nombre : f.nombre, 
-      password: f.password,
-    }
-
-    localStorage.setItem('usuario',JSON.stringify(usuario));
-
   }
 
 }
